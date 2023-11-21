@@ -12,6 +12,7 @@ A simple and organized Todo App with a Node.js backend and a beautiful frontend.
   - [Usage](#usage)
 - [API Endpoints](#api-endpoints)
 - [Frontend](#frontend)
+- [Tech Stack](#tech-stack)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -41,46 +42,65 @@ Before you begin, ensure you have the following installed:
 
    ```bash
    git clone https://github.com/your-username/your-repo.git
-Navigate to the project directory:
+   ```
 
-bash
-Copy code
-cd your-repo
-Install dependencies:
+2. Navigate to the project directory:
 
-bash
-Copy code
-npm install
-Usage
-Run the server:
+   ```bash
+   cd your-repo
+   ```
 
-bash
-Copy code
-npm start
-This will start the Node.js server at http://localhost:3000.
+3. Install dependencies:
 
-Open the frontend:
+   ```bash
+   npm install
+   ```
 
-Open index.html in your browser or serve it using a simple HTTP server.
+### Usage
 
-bash
-Copy code
-# For example, using Python:
-python -m http.server
-Open your browser and go to http://localhost:8000 (or another port as specified by the server).
+1. Run the server:
 
-API Endpoints
-GET /todos: Retrieve all todo items.
-GET /todos/:id: Retrieve a specific todo item by ID.
-POST /todos: Create a new todo item.
-PUT /todos/:id: Update an existing todo item by ID.
-DELETE /todos/:id: Delete a todo item by ID.
-For more details, refer to the API Documentation.
+   ```bash
+   npm start
+   ```
 
-Frontend
+   This will start the Node.js server at `http://localhost:3000`.
+
+2. Open the frontend:
+
+   Open `index.html` in your browser or serve it using a simple HTTP server.
+
+   ```bash
+   # For example, using Python:
+   python -m http.server
+   ```
+
+   Open your browser and go to `http://localhost:8000` (or another port as specified by the server).
+
+## API Endpoints
+
+- **GET /todos**: Retrieve all todo items.
+- **GET /todos/:id**: Retrieve a specific todo item by ID.
+- **POST /todos**: Create a new todo item.
+- **PUT /todos/:id**: Update an existing todo item by ID.
+- **DELETE /todos/:id**: Delete a todo item by ID.
+
+For more details, refer to the [API Documentation](#).
+
+## Frontend
+
 The frontend is a simple and elegant user interface for managing your todos. It provides a form to add new todos, a list to display existing todos, and buttons to update or delete todos.
 
-Todo App Screenshot
+![Todo App Screenshot](./screenshot.png)
 
-Contributing
+## Tech Stack
+
+- Node.js
+- Express
+- HTML
+- CSS
+- JavaScript
+
+## Contributing
+
 Contributions are welcome! Feel free to open an issue or submit a pull request.
