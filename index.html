@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo App</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      li {
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      .todo-form {
+        display: flex;
+        margin-bottom: 20px;
+      }
+
+      .todo-form input,
+      .todo-form button {
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Todo App</h1>
+
+    <div class="todo-form">
+      <input type="text" id="title" placeholder="Todo Title" />
+      <input type="text" id="description" placeholder="Todo Description" />
+      <button onclick="addTodo()">Add Todo</button>
+    </div>
+
+    <ul id="todoList"></ul>
+
+    <script>
+      // Function to fetch and display todos
+      async function fetchTodos() {
+        const response = await fetch("http://localhost:3000/todos");
+        const todos = await response.json();
+
+        const todoList = document.getElementById("todoList");
+        todoList.innerHTML = "";
+
+        todos.forEach((todo) => {
+          const li = document.createElement("li");
+          li.innerHTML = `
+          <span>${todo.title} - ${todo.description}</span>
+          <button onclick="updateTodo('${todo.id}')">Update</button>
+          <button onclick="deleteTodo('${todo.id}')">Delete</button>
+        `;
+          todoList.appendChild(li);
+        });
+      }
+
+      // Function to add a new todo
+      async function addTodo() {
+        const title = document.getElementById("title").value;
+        const description = document.getElementById("description").value;
+
+        const response = await fetch("http://localhost:3000/todos", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ title, description }),
+        });
+
+        if (response.status === 201) {
+          fetchTodos();
+        }
+      }
+
+      // Function to update a todo
+      async function updateTodo(id) {
+        const title = prompt("Enter updated title:");
+        const description = prompt("Enter updated description:");
+
+        const response = await fetch(`http://localhost:3000/todos/${id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ title, description }),
+        });
+
+        if (response.status === 200) {
+          fetchTodos();
+        }
+      }
+
+      // Function to delete a todo
+      async function deleteTodo(id) {
+        const response = await fetch(`http://localhost:3000/todos/${id}`, {
+          method: "DELETE",
+        });
+
+        if (response.status === 200) {
+          fetchTodos();
+        }
+      }
+
+      // Initial fetch when the page loads
+      fetchTodos();
+    </script>
+  </body>
+</html>
