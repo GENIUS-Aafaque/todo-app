@@ -104,3 +104,14 @@ The frontend is a simple and elegant user interface for managing your todos. It 
 ## Contributing
 
 Contributions are welcome! Feel free to open an issue or submit a pull request.
+
+# Acknowledgments
+
+This project draws inspiration from concepts and structures covered in a course assignment. While the course served as a learning medium, all implementations and customizations with regards to the codebase have been done independently.
+
+## Original Course Assignment
+
+The course assignment that inspired this project can be found in the [course repository](https://github.com/100xDevs-hkirat/all-assignments/tree/main/week-3/04-course-app-hard) and copy of [my solutions](https://github.com/GENIUS-Aafaque/HKirat-FullStack/tree/main/week-3/04-course-app-hard). They provided valuable insights and served as a foundation for the development process.
+
+I express my appreciation to the course instructor[Harkirat Singh](https://github.com/100xDevs-hkirat) for creating educational content that contributed to the development of this project.
+
