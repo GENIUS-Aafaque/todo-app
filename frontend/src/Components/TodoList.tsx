@@ -1,12 +1,14 @@
 import { useContext, useState, useEffect } from 'react';
 import { authState } from '../store/authState.js';
 import {useRecoilValue} from "recoil";
+import { useNavigate } from 'react-router-dom';
 
 const TodoList = () => {
     const [todos, setTodos] = useState([]);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const authStateValue = useRecoilValue(authState);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const getTodos = async () => {
@@ -46,7 +48,7 @@ const TodoList = () => {
                 <div style={{marginTop: 25, marginLeft: 20}}>
                     <button onClick={() => {
                         localStorage.removeItem("token");
-                        window.location = "/login";
+                        navigate("/login");
                     }}>Logout</button>
                 </div>
             </div>
