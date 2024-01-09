@@ -27,9 +27,9 @@ const TodoList = () => {
         const response = await fetch('http://localhost:3000/todo/todos', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.getItem("token")}` },
-            body: JSON.stringify({ title, description })
+            body: JSON.stringify({ title, description })        // can't use type Todo, _id and isDone missing
         });
-        const data = await response.json();
+        const data: Todo = await response.json();
         setTodos([...todos, data]);
     };
 
@@ -38,7 +38,7 @@ const TodoList = () => {
             method: 'PATCH',
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
         });
-        const updatedTodo = await response.json();
+        const updatedTodo: Todo = await response.json();
         setTodos(todos.map((todo) => (todo._id === updatedTodo._id ? updatedTodo : todo)));
     };
 
