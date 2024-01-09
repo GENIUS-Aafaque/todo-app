@@ -27,7 +27,7 @@ const TodoList = () => {
         const response = await fetch('http://localhost:3000/todo/todos', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.getItem("token")}` },
-            body: JSON.stringify({ title, description })        // can't use type Todo, _id and isDone missing
+            body: JSON.stringify({ title, description })        // can't use type Todo, _id and done missing
         });
         const data: Todo = await response.json();
         setTodos([...todos, data]);
@@ -61,7 +61,7 @@ const TodoList = () => {
                 <div key={todo._id}>
                     <h3>{todo.title}</h3>
                     <p>{todo.description}</p>
-                    <button onClick={() => markDone(todo._id)}>{todo.isDone ? 'Done' : 'Mark as Done'}</button>
+                    <button onClick={() => markDone(todo._id)}>{todo.done ? 'Done' : 'Mark as Done'}</button>
                 </div>
             ))}
         </div>
