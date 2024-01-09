@@ -33,7 +33,7 @@ const TodoList = () => {
         setTodos([...todos, data]);
     };
 
-    const markDone = async (id: Number) => {
+    const markDone = async (id: number) => {
         const response = await fetch(`http://localhost:3000/todo/todos/${id}/done`, {
             method: 'PATCH',
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
