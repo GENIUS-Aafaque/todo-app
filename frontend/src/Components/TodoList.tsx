@@ -20,7 +20,7 @@ const TodoList = () => {
             setTodos(data);
         };
         getTodos();
-    }, [authState.token]);
+    }, [authStateValue.token]);
 
     const addTodo = async () => {
         const response = await fetch('http://localhost:3000/todo/todos', {
