@@ -4,3 +4,9 @@ export interface Todo {
     description: String;
     isDone: Boolean;
 }
+
+export type SignupRequest = {
+    username: string;
+    password: string;
+  };
+

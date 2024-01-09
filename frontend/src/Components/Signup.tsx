@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
+import { SignupRequest } from '../interfaces/types';
 
 const Signup = () => {
     const [username, setUsername] = useState('');
@@ -7,10 +8,11 @@ const Signup = () => {
     const navigate = useNavigate();
 
     const handleSignup = async () => {
+        const credentials: SignupRequest = { username, password }
         const response = await fetch('http://localhost:3000/auth/signup', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password })
+            body: JSON.stringify(credentials)
         });
         // Todo: Create a type for the response that you get back from the server
         const data = await response.json();
