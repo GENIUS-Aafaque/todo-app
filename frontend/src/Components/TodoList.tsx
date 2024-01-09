@@ -2,9 +2,10 @@ import { useContext, useState, useEffect } from 'react';
 import { authState } from '../store/authState.js';
 import {useRecoilValue} from "recoil";
 import { useNavigate } from 'react-router-dom';
+import { Todo } from '../interfaces/types.js';
 
 const TodoList = () => {
-    const [todos, setTodos] = useState([]);
+    const [todos, setTodos] = useState<Todo[]>([]);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const authStateValue = useRecoilValue(authState);
@@ -16,7 +17,7 @@ const TodoList = () => {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
             });
             // Todo: Create a type for the response that you get back from the server
-            const data = await response.json();
+            const data: Todo[] = await response.json();
             setTodos(data);
         };
         getTodos();
@@ -32,7 +33,7 @@ const TodoList = () => {
         setTodos([...todos, data]);
     };
 
-    const markDone = async (id) => {
+    const markDone = async (id: Number) => {
         const response = await fetch(`http://localhost:3000/todo/todos/${id}/done`, {
             method: 'PATCH',
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
@@ -60,7 +61,7 @@ const TodoList = () => {
                 <div key={todo._id}>
                     <h3>{todo.title}</h3>
                     <p>{todo.description}</p>
-                    <button onClick={() => markDone(todo._id)}>{todo.done ? 'Done' : 'Mark as Done'}</button>
+                    <button onClick={() => markDone(todo._id)}>{todo.isDone ? 'Done' : 'Mark as Done'}</button>
                 </div>
             ))}
         </div>
