@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
+import { LoginRequest } from '../interfaces/types';
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -7,10 +8,11 @@ const Login = () => {
     const navigate = useNavigate();
 
     const handleLogin = async () => {
+        const credentials: LoginRequest = { username, password };
         const response = await fetch('http://localhost:3000/auth/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password })
+            body: JSON.stringify(credentials)
         });
         // Todo: Create a type for the response that you get back from the server
         const data = await response.json();

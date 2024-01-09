@@ -10,3 +10,7 @@ export type SignupRequest = {
     password: string;
   };
 
+export type LoginRequest = {
+    username: string;
+    password: string;
+  };
