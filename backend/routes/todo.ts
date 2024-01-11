@@ -1,13 +1,8 @@
 import express from 'express';
-import { authenticateJwt, SECRET } from "../middleware/index";
+import { authenticateJwt } from "../middleware/index";
 import { Todo } from "../db";
 import { todoValidator } from '../validators/validators';
 const router = express.Router();
-
-interface Todos {
-  title: string;
-  description: string;
-}
 
 router.post('/todos', authenticateJwt, (req, res) => {
   const inputs = todoValidator.safeParse(req.body);

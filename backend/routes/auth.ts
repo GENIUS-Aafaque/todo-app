@@ -5,11 +5,6 @@ import { User } from "../db";
 import { userValidator } from "../validators/validators";
 const router = express.Router();
 
-interface users {
-  username: string;
-  password: string;
-}
-
 router.post('/signup', async (req, res) => {
   const inputs = userValidator.safeParse(req.body);
   if(!inputs.success) {
