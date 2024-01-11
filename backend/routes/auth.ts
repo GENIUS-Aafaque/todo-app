@@ -5,8 +5,8 @@ import { User } from "../db";
 const router = express.Router();
 
 interface users {
-  username: String;
-  password: String;
+  username: string;
+  password: string;
 }
 
 router.post('/signup', async (req, res) => {

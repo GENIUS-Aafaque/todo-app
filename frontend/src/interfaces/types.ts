@@ -1,8 +1,8 @@
 export interface Todo {
     _id: number;
-    title: String;
-    description: String;
-    done: Boolean;
+    title: string;
+    description: string;
+    done: boolean;
 }
 
 export type SignupRequest = {

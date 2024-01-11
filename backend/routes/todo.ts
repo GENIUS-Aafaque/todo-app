@@ -4,8 +4,8 @@ import { Todo } from "../db";
 const router = express.Router();
 
 interface Todos {
-  title: String;
-  description: String;
+  title: string;
+  description: string;
 }
 
 router.post('/todos', authenticateJwt, (req, res) => {
