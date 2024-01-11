@@ -28,8 +28,12 @@ router.post('/signup', async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
-  const inputs: users = req.body;
-  const user = await User.findOne({ username: inputs.username, password: inputs.password });
+  const inputs = userValidator.safeParse(req.body);
+  if(!inputs.success) {
+    res.status(411).json({ msg: inputs.error.message })
+    return;
+  }
+  const user = await User.findOne({ username: inputs.data.username, password: inputs.data.password });
   if (user) {
     const token = jwt.sign({ id: user._id }, SECRET, { expiresIn: '1h' });
     res.json({ message: 'Logged in successfully', token });
