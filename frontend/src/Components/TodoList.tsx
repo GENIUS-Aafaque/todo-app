@@ -24,10 +24,11 @@ const TodoList = () => {
     }, [authStateValue.token]);
 
     const addTodo = async () => {
+        const toAdd: Partial<Todo> = { title, description };
         const response = await fetch('http://localhost:3000/todo/todos', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.getItem("token")}` },
-            body: JSON.stringify({ title, description })        // can't use type Todo, _id and done missing
+            body: JSON.stringify(toAdd)        // can't use type Todo, _id and done missing
         });
         const data: Todo = await response.json();
         setTodos([...todos, data]);
