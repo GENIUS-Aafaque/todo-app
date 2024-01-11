@@ -16,12 +16,16 @@ let userCredentials = z.object ({
 })
 
 router.post('/signup', async (req, res) => {
-  const inputs: users = req.body;
-  const user = await User.findOne({ username: inputs.username });
+  const inputs = userCredentials.safeParse(req.body);
+  if(!inputs.success) {
+    res.status(411).json({ msg: inputs.error.message })
+    return;
+  }
+  const user = await User.findOne({ username: inputs.data.username });
   if (user) {
     res.status(403).json({ message: 'User already exists' });
   } else {
-    const newUser = new User({ username: inputs.username, password: inputs.password });
+    const newUser = new User({ username: inputs.data.username, password: inputs.data.password });
     await newUser.save();
     const token = jwt.sign({ id: newUser._id }, SECRET, { expiresIn: '1h' });
     res.json({ message: 'User created successfully', token });
