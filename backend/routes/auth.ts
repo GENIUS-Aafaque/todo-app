@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import express from 'express';
 import { authenticateJwt, SECRET } from "../middleware/";
 import { User } from "../db";
-import { z } from "zod";
+import { userValidator } from "../validators/validators";
 const router = express.Router();
 
 interface users {
@@ -10,13 +10,8 @@ interface users {
   password: string;
 }
 
-let userCredentials = z.object ({
-  username: z.string().min(1),
-  password: z.string().min(1)
-})
-
 router.post('/signup', async (req, res) => {
-  const inputs = userCredentials.safeParse(req.body);
+  const inputs = userValidator.safeParse(req.body);
   if(!inputs.success) {
     res.status(411).json({ msg: inputs.error.message })
     return;
