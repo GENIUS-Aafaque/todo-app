@@ -2,12 +2,18 @@ import jwt from "jsonwebtoken";
 import express from 'express';
 import { authenticateJwt, SECRET } from "../middleware/";
 import { User } from "../db";
+import { z } from "zod";
 const router = express.Router();
 
 interface users {
   username: string;
   password: string;
 }
+
+let userCredentials = z.object ({
+  username: z.string().min(1),
+  password: z.string().min(1)
+})
 
 router.post('/signup', async (req, res) => {
   const inputs: users = req.body;
