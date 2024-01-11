@@ -1,6 +1,7 @@
 import express from 'express';
 import { authenticateJwt, SECRET } from "../middleware/index";
 import { Todo } from "../db";
+import { todoValidator } from '../validators/validators';
 const router = express.Router();
 
 interface Todos {
@@ -9,11 +10,15 @@ interface Todos {
 }
 
 router.post('/todos', authenticateJwt, (req, res) => {
-  const inputs: Todos = req.body;
+  const inputs = todoValidator.safeParse(req.body);
+  if(!inputs.success) {
+    res.status(411).json({ msg: inputs.error.message })
+    return;
+  }
   const done = false;
   const userId = req.headers["userId"];
 
-  const newTodo = new Todo({ title: inputs.title, description: inputs.description, done, userId });
+  const newTodo = new Todo({ title: inputs.data.title, description: inputs.data.description, done, userId });
 
   newTodo.save()
     .then((savedTodo) => {
