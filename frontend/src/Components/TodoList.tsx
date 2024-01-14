@@ -4,12 +4,10 @@ import {useRecoilValue} from "recoil";
 import { useNavigate } from 'react-router-dom';
 import { Todo } from '../interfaces/types.js';
 
-const TodoList = () => {
+function useTodos() {
     const [todos, setTodos] = useState<Todo[]>([]);
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
+    const [loading, setLoading] = useState(true);
     const authStateValue = useRecoilValue(authState);
-    const navigate = useNavigate();
 
     useEffect(() => {
         const getTodos = async () => {
@@ -19,10 +17,21 @@ const TodoList = () => {
             // Todo: Create a type for the response that you get back from the server
             const data: Todo[] = await response.json();
             setTodos(data);
+            setLoading(false);
         };
         getTodos();
     }, [authStateValue.token]);
 
+    return { loading, todos, setTodos };
+}
+
+const TodoList = () => {
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const authStateValue = useRecoilValue(authState);
+    const navigate = useNavigate();
+    const { loading, todos, setTodos } = useTodos();
+    
     const addTodo = async () => {
         const toAdd: Partial<Todo> = { title, description };
         const response = await fetch('http://localhost:3000/todo/todos', {
