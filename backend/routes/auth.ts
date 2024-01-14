@@ -2,7 +2,8 @@ import jwt from "jsonwebtoken";
 import express from 'express';
 import { authenticateJwt, SECRET } from "../middleware/";
 import { User } from "../db";
-import { userValidator } from "../validators/validators";
+import { userValidator } from "@aafaque/common";
+
 const router = express.Router();
 
 router.post('/signup', async (req, res) => {
