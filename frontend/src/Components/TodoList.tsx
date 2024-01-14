@@ -52,6 +52,10 @@ const TodoList = () => {
         setTodos(todos.map((todo) => (todo._id === updatedTodo._id ? updatedTodo : todo)));
     };
 
+    if (loading) {
+        return "Loading...";
+    }
+
     return (
         <div>
             <div style={{display: "flex"}}>
