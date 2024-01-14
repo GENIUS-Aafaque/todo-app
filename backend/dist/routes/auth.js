@@ -16,23 +16,32 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const express_1 = __importDefault(require("express"));
 const middleware_1 = require("../middleware/");
 const db_1 = require("../db");
+const validators_1 = require("../validators/validators");
 const router = express_1.default.Router();
 router.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const inputs = req.body;
-    const user = yield db_1.User.findOne({ username: inputs.username });
+    const inputs = validators_1.userValidator.safeParse(req.body);
+    if (!inputs.success) {
+        res.status(411).json({ msg: inputs.error.message });
+        return;
+    }
+    const user = yield db_1.User.findOne({ username: inputs.data.username });
     if (user) {
         res.status(403).json({ message: 'User already exists' });
     }
     else {
-        const newUser = new db_1.User({ username: inputs.username, password: inputs.password });
+        const newUser = new db_1.User({ username: inputs.data.username, password: inputs.data.password });
         yield newUser.save();
         const token = jsonwebtoken_1.default.sign({ id: newUser._id }, middleware_1.SECRET, { expiresIn: '1h' });
         res.json({ message: 'User created successfully', token });
     }
 }));
 router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const inputs = req.body;
-    const user = yield db_1.User.findOne({ username: inputs.username, password: inputs.password });
+    const inputs = validators_1.userValidator.safeParse(req.body);
+    if (!inputs.success) {
+        res.status(411).json({ msg: inputs.error.message });
+        return;
+    }
+    const user = yield db_1.User.findOne({ username: inputs.data.username, password: inputs.data.password });
     if (user) {
         const token = jsonwebtoken_1.default.sign({ id: user._id }, middleware_1.SECRET, { expiresIn: '1h' });
         res.json({ message: 'Logged in successfully', token });
