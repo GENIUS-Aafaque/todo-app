@@ -10,4 +10,5 @@ export const todoValidator = z.object ({
     description: z.string().min(1).max(100)
   });
 
-export type SignupParams = z.infer<typeof userValidator>;
+export type UserCredentials = z.infer<typeof userValidator>;
+export type TodoInput = z.infer<typeof todoValidator>;
