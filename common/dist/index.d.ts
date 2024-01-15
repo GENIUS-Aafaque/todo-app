@@ -19,4 +19,5 @@ export declare const todoValidator: z.ZodObject<{
     title: string;
     description: string;
 }>;
-export type SignupParams = z.infer<typeof userValidator>;
+export type UserCredentials = z.infer<typeof userValidator>;
+export type TodoInput = z.infer<typeof todoValidator>;
