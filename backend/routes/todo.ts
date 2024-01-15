@@ -1,7 +1,7 @@
 import express from 'express';
 import { authenticateJwt } from "../middleware/index";
 import { Todo } from "../db";
-import { todoValidator } from '../validators/validators';
+import { todoValidator } from '@aafaque/common';
 const router = express.Router();
 
 router.post('/todos', authenticateJwt, (req, res) => {
