@@ -6,10 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const index_1 = require("../middleware/index");
 const db_1 = require("../db");
-const validators_1 = require("../validators/validators");
+const common_1 = require("@aafaque/common");
 const router = express_1.default.Router();
 router.post('/todos', index_1.authenticateJwt, (req, res) => {
-    const inputs = validators_1.todoValidator.safeParse(req.body);
+    const inputs = common_1.todoValidator.safeParse(req.body);
     if (!inputs.success) {
         res.status(411).json({ msg: inputs.error.message });
         return;

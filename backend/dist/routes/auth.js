@@ -16,10 +16,10 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const express_1 = __importDefault(require("express"));
 const middleware_1 = require("../middleware/");
 const db_1 = require("../db");
-const validators_1 = require("../validators/validators");
+const common_1 = require("@aafaque/common");
 const router = express_1.default.Router();
 router.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const inputs = validators_1.userValidator.safeParse(req.body);
+    const inputs = common_1.userValidator.safeParse(req.body);
     if (!inputs.success) {
         res.status(411).json({ msg: inputs.error.message });
         return;
@@ -36,7 +36,7 @@ router.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 }));
 router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const inputs = validators_1.userValidator.safeParse(req.body);
+    const inputs = common_1.userValidator.safeParse(req.body);
     if (!inputs.success) {
         res.status(411).json({ msg: inputs.error.message });
         return;
