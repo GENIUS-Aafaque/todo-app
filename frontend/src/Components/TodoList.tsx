@@ -3,6 +3,7 @@ import { authState } from '../store/authState.js';
 import {useRecoilValue} from "recoil";
 import { useNavigate } from 'react-router-dom';
 import { Todo } from '../interfaces/types.js';
+import { TodoInput } from '@aafaque/common';
 
 function useTodos() {
     const [todos, setTodos] = useState<Todo[]>([]);
@@ -33,7 +34,7 @@ const TodoList = () => {
     const { loading, todos, setTodos } = useTodos();
     
     const addTodo = async () => {
-        const toAdd: Partial<Todo> = { title, description };
+        const toAdd: TodoInput = { title, description };
         const response = await fetch('http://localhost:3000/todo/todos', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.getItem("token")}` },
