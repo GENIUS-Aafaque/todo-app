@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import { SignupRequest } from '../interfaces/types';
+import { UserCredentials } from '@aafaque/common';
 
 const Signup = () => {
     const [username, setUsername] = useState('');
@@ -8,7 +8,7 @@ const Signup = () => {
     const navigate = useNavigate();
 
     const handleSignup = async () => {
-        const credentials: SignupRequest = { username, password }
+        const credentials: UserCredentials = { username, password }
         const response = await fetch('http://localhost:3000/auth/signup', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

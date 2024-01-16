@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import { LoginRequest } from '../interfaces/types';
+import { UserCredentials } from '@aafaque/common';
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -8,7 +8,7 @@ const Login = () => {
     const navigate = useNavigate();
 
     const handleLogin = async () => {
-        const credentials: LoginRequest = { username, password };
+        const credentials: UserCredentials = { username, password };
         const response = await fetch('http://localhost:3000/auth/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
