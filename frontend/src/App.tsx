@@ -47,7 +47,7 @@ function InitState() {
     }
     useEffect(() => {
         init();
-    }, [setAuth, navigate])
+    }, [setAuth])
     return <></>
 }
 
